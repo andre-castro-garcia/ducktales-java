@@ -15,14 +15,12 @@ import java.util.concurrent.Executors;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 /*
-    ┌────────────────┬───────────────────────────────────────────────────────────────┐
-    │ Annotation  │ Meaning                                             │
-    ├────────────────┼───────────────────────────────────────────────────────────────┤
-    │ @Component  │ generic stereotype for any Spring-managed component │
-    │ @Repository │ stereotype for persistence layer                    │
-    │ @Service    │ stereotype for service layer                        │
-    │ @Controller │ stereotype for presentation layer (spring-mvc)      │
-    └────────────────┴───────────────────────────────────────────────────────────────┘
+    Annotation          Meaning
+    -------------------------------------------------------------------------
+    @Component          generic stereotype for any Spring-managed component
+    @Repository         stereotype for persistence layer
+    @Service            stereotype for service layer
+    @Controller         stereotype for presentation layer (spring-mvc)
 */
 
 @Scope(value="prototype", proxyMode=ScopedProxyMode.TARGET_CLASS)
