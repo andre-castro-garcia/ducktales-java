@@ -8,8 +8,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.concurrent.CompletableFuture;
+
+import static com.ea.async.Async.await;
 
 public class DucktalesControllerTest {
 
@@ -26,14 +30,17 @@ public class DucktalesControllerTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        Mockito.when(repository.getSafeBox()).thenReturn(safeBox);
+        Mockito.when(repository.getSafeBox()).thenReturn(CompletableFuture.completedFuture(safeBox));
 
         controller = new DucktalesController(repository);
     }
 
     @Test
     public void shouldGetSafeBox() {
-        SafeBox response = controller.Get();
+        String passphrase = "123";
+        SafeBox response = await(controller.Get(passphrase)).getBody();
+
+        assert response != null;
         Assert.assertEquals(2, response.getCoins().size());
     }
 }

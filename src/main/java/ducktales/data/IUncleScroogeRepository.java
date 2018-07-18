@@ -1,9 +1,9 @@
 package ducktales.data;
 
 import ducktales.models.SafeBox;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.concurrent.CompletableFuture;
+
 public interface IUncleScroogeRepository {
-    SafeBox getSafeBox();
+    CompletableFuture<SafeBox> getSafeBox();
 }

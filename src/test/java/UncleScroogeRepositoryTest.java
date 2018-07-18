@@ -8,6 +8,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import static com.ea.async.Async.await;
+
 public class UncleScroogeRepositoryTest {
 
     private SafeBox safeBox = new SafeBox(new HashSet<>(Arrays.asList(
@@ -24,7 +26,7 @@ public class UncleScroogeRepositoryTest {
 
     @Test
     public void shouldGetSafeBox() {
-        SafeBox safeBoxActual = repository.getSafeBox();
+        SafeBox safeBoxActual = await(repository.getSafeBox());
         Assert.assertEquals(safeBox, safeBoxActual);
     }
 }
