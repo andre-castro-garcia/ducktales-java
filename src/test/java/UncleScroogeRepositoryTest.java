@@ -1,3 +1,4 @@
+import com.ea.async.Async;
 import ducktales.data.UncleScroogeRepository;
 import ducktales.models.Coin;
 import ducktales.models.SafeBox;
@@ -22,6 +23,7 @@ public class UncleScroogeRepositoryTest {
     @Before
     public void setup() {
         repository = new UncleScroogeRepository();
+        Async.init();
     }
 
     @Test

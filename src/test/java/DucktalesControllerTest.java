@@ -1,3 +1,4 @@
+import com.ea.async.Async;
 import ducktales.controllers.DucktalesController;
 import ducktales.data.IUncleScroogeRepository;
 import ducktales.models.Coin;
@@ -8,9 +9,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 import static com.ea.async.Async.await;
@@ -31,16 +34,18 @@ public class DucktalesControllerTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         Mockito.when(repository.getSafeBox()).thenReturn(CompletableFuture.completedFuture(safeBox));
+        Mockito.when(repository.getID()).thenReturn(java.util.UUID.randomUUID());
 
         controller = new DucktalesController(repository);
+        Async.init();
     }
 
     @Test
     public void shouldGetSafeBox() {
         String passphrase = "123";
-        SafeBox response = await(controller.Get(passphrase)).getBody();
+        ResponseEntity<SafeBox> response = await(controller.Get(passphrase));
 
-        assert response != null;
-        Assert.assertEquals(2, response.getCoins().size());
+        Assert.assertNotNull(response);
+        Assert.assertEquals(2, Objects.requireNonNull(response.getBody()).getCoins().size());
     }
 }
