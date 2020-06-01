@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'maven:8-alpine' }
+        docker { image 'maven:3.6.3-openjdk-15' }
     }
     stages {
         stage('Build application') {
