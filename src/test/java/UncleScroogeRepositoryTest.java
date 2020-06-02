@@ -1,34 +1,31 @@
-import com.ea.async.Async;
 import ducktales.data.UncleScroogeRepository;
 import ducktales.models.Coin;
 import ducktales.models.SafeBox;
-import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static com.ea.async.Async.await;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UncleScroogeRepositoryTest {
 
-    private SafeBox safeBox = new SafeBox(new HashSet<>(Arrays.asList(
+    private final SafeBox safeBox = new SafeBox(new HashSet<>(Arrays.asList(
             new Coin(0.01d, 0.25d),
             new Coin(0.01d, 0.25d)
     )));
 
     private UncleScroogeRepository repository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         repository = new UncleScroogeRepository();
-        Async.init();
     }
 
     @Test
     public void shouldGetSafeBox() {
-        SafeBox safeBoxActual = await(repository.getSafeBox());
-        Assert.assertEquals(safeBox, safeBoxActual);
+        SafeBox safeBoxActual = repository.getSafeBox();
+        assertEquals(safeBox, safeBoxActual);
     }
 }
